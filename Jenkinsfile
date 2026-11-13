@@ -15,15 +15,14 @@ pipeline {
             }
         }
         stage('3. Deploy') {
-            steps {
-                echo '특정 사이트(서버)로 배포 중...'
-                
-                // [테스트 예시] 로컬의 특정 배포 폴더로 결과물 복사
-                // (실제 운영 서버라면 이 부분에 SCP 명령어 등을 이용해 원격 서버로 전송합니다.)
-                sh 'cp result.txt /path/to/your/target/directory/'
-                
-                echo '배포가 완료되었습니다!'
-            }
+			steps {
+					echo '특정 사이트(서버)로 배포 중...'
+					
+					// 존재하지 않는 경로 대신 /tmp 폴더로 복사
+					sh 'cp result.txt /tmp/'
+					
+					echo '배포가 완료되었습니다!'
+			}
         }
     }
 }
