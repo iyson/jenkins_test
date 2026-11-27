@@ -21,12 +21,10 @@ pipeline {
 		stage('3. Deploy') {
 			steps {
 				echo '리눅스 컨테이너로 JAR 배포 중...'
-				withCredentials([usernamePassword(credentialsId: 'deploy-server-ssh', usernameVariable: 'SSH_USER', passwordVariable: 'SSH_PASS')]) {
-					script {
-						def jarFile = sh(script: 'ls backend/target/*.jar | head -n 1', returnStdout: true).trim()
-						sh "sshpass -p \"$SSH_PASS\" scp -P 2222 -o StrictHostKeyChecking=no \"${jarFile}\" \"$SSH_USER@host.docker.internal:/opt/app/app.jar\""
-						sh "sshpass -p \"$SSH_PASS\" ssh -p 2222 -o StrictHostKeyChecking=no \"$SSH_USER@host.docker.internal\" '/opt/app/run.sh'"
-					}
+				script {
+					def jarFile = sh(script: 'ls backend/target/*.jar | head -n 1', returnStdout: true).trim()
+					sh "sshpass -p '1234' scp -P 2222 -o StrictHostKeyChecking=no \"${jarFile}\" root@host.docker.internal:/opt/app/app.jar"
+					sh "sshpass -p '1234' ssh -p 2222 -o StrictHostKeyChecking=no root@host.docker.internal '/opt/app/run.sh'"
 				}
 				echo '배포가 완료되었습니다!'
 			}
