@@ -1,0 +1,16 @@
+#포트고정을위해서 설치하고
+npm install -D @vitejs/plugin-react 
+
+#아래와같이 파일을 생성해서 고정시키면됨
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+  },
+})
+
+#실행시 
+npm run dev 
