@@ -9,7 +9,7 @@ pipeline {
         stage('2. Build') {
             steps {
                 echo 'Maven JAR 빌드 진행 중...'
-                sh 'docker run --rm -v "$WORKSPACE":/app -w /app/backend maven:3.9-eclipse-temurin-8 mvn clean package -DskipTests && ls -lh backend/target/*.jar'
+                sh 'mvn -f backend/pom.xml clean package -DskipTests && ls -lh backend/target/*.jar'
             }
         }
         stage('3. Deploy') {
